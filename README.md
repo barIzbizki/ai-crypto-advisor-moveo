@@ -61,6 +61,8 @@ Runs the dev server at http://localhost:5173.
 Other scripts:
 - `npm run build` — type-check and build for production
 - `npm run lint` — run ESLint
+- `npm run test` — run the test suite once (Vitest)
+- `npm run test:watch` — run the test suite in watch mode
 - `npm run format` — format with Prettier
 - `npm run format:check` — check formatting without writing
 
