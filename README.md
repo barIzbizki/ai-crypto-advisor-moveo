@@ -24,8 +24,28 @@ A personalized crypto investor dashboard. Users complete a short onboarding quiz
 
 - Node.js 20+ and npm
 - Python 3.12+
+- Docker (for the local Postgres database)
 
 ## Setup & Run
+
+### Database
+
+```bash
+cp .env.example .env   # adjust values if needed
+docker compose up -d
+```
+
+Starts a local Postgres instance at `localhost:5432` (database `ai_crypto_advisor`). Then, after installing backend dependencies (see Backend below), with the venv active:
+
+```bash
+cd backend
+alembic upgrade head
+```
+
+Applies all migrations. Other commands (run from `backend/` with the venv active):
+- `alembic revision --autogenerate -m "<message>"` — generate a migration from model changes
+- `alembic downgrade base` — revert all migrations
+- `docker compose down` — stop Postgres (data is kept in a Docker volume; add `-v` to also delete it)
 
 ### Frontend
 
