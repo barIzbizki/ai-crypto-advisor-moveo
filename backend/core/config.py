@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     )
     environment: str = "local"
     cors_origins: Annotated[list[str], NoDecode] = ["http://localhost:5173"]
+    secret_key: str
+    algorithm: str = "HS256"
+    access_token_expire_minutes: int = 30
 
     @field_validator("cors_origins", mode="before")
     @classmethod
