@@ -81,3 +81,4 @@ Runs the API at http://localhost:8000 (health check at `/health`).
 Other commands (run from `backend/` with the venv active):
 - `ruff check .` — lint
 - `black .` — format
+- `pytest` — run tests
