@@ -89,6 +89,8 @@ Other commands (run from `backend/` with the venv active):
 
 The backend deploys to [Render](https://render.com) as a web service, backed by a Render managed Postgres database (production DB, separate from the local docker-compose one used above).
 
+**Deployed URL:** https://ai-crypto-advisor-moveo-backend.onrender.com (health: `/health`, docs: `/docs`)
+
 **Start command:**
 ```bash
 uvicorn main:app --host 0.0.0.0 --port $PORT
