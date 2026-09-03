@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from core.config import settings
-from routers import health
+from routers import auth, health
 
 app = FastAPI(title="AI Crypto Advisor API")
 
@@ -15,6 +15,7 @@ app.add_middleware(
 )
 
 app.include_router(health.router)
+app.include_router(auth.router)
 
 
 @app.get("/")
