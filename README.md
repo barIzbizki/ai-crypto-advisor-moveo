@@ -84,3 +84,33 @@ Other commands (run from `backend/` with the venv active):
 - `ruff check .` — lint
 - `black .` — format
 - `pytest` — run tests
+
+## Deployment (Backend)
+
+The backend deploys to [Render](https://render.com) as a web service, backed by a Render managed Postgres database (production DB, separate from the local docker-compose one used above).
+
+**Start command:**
+```bash
+uvicorn main:app --host 0.0.0.0 --port $PORT
+```
+Render injects `$PORT`; the service must bind `0.0.0.0`, not `localhost`.
+
+**Required production environment variables** (set on the Render web service, not committed anywhere — see `backend/core/config.py`):
+| Variable | Value |
+| --- | --- |
+| `DATABASE_URL` | Render Postgres connection string, `postgresql+psycopg://...` scheme |
+| `SECRET_KEY` | Freshly generated, production-only: `python -c "import secrets; print(secrets.token_hex(32))"` |
+| `ENVIRONMENT` | `production` |
+| `CORS_ORIGINS` | The deployed frontend's origin(s) only (comma-separated), never `http://localhost:5173` |
+| `ALGORITHM` | `HS256` (default; set only if overriding) |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | `30` (default; set only if overriding) |
+
+**Running migrations against production:**
+```bash
+cd backend
+DATABASE_URL=<production connection string> alembic upgrade head   # macOS/Linux
+$env:DATABASE_URL="<production connection string>"; alembic upgrade head   # Windows PowerShell
+```
+Run this after provisioning the production database and before (or immediately after) the first deploy, and again after any deploy that adds new migrations. Re-running it against an already-migrated database is a safe no-op.
+
+**Post-deploy verification:** confirm `GET /health` returns healthy, `GET /docs` loads, and an auth flow (register/login via `routers/auth.py`) succeeds against the deployed service.
