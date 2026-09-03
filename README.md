@@ -51,6 +51,7 @@ Applies all migrations. Other commands (run from `backend/` with the venv active
 
 ```bash
 cd frontend
+cp .env.example .env   # adjust values if needed
 npm install
 npm run dev
 ```
@@ -67,6 +68,7 @@ Other scripts:
 
 ```bash
 cd backend
+cp .env.example .env   # adjust values if needed
 python -m venv .venv
 .venv\Scripts\activate      # Windows
 # source .venv/bin/activate  # macOS/Linux
