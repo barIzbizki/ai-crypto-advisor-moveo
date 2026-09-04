@@ -18,6 +18,7 @@ class UserRead(BaseModel):
 
     id: int
     email: EmailStr
+    onboarded: bool
     created_at: datetime
 
 
