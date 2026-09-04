@@ -47,7 +47,7 @@ beforeEach(() => {
   completeOnboardingMock.mockReset()
   mockedSubmitPreferences.mockReset()
   mockedUseAuth.mockReturnValue({
-    user: { id: 1, email: 'a@example.com', onboarded: false, created_at: '2026-01-01T00:00:00Z' },
+    user: { id: 1, email: 'a@example.com', name: null, onboarded: false, created_at: '2026-01-01T00:00:00Z' },
     status: 'authenticated',
     token: 'test-token',
     login: vi.fn(),
@@ -92,9 +92,9 @@ describe('OnboardingPage', () => {
     mockedSubmitPreferences.mockResolvedValueOnce({
       id: 1,
       user_id: 1,
-      trading_strategy: 'long_term_hold',
-      risk_level: 'low',
-      notification_preferences: { crypto_assets: ['BTC'], content_types: ['Market News'] },
+      investor_type: 'hodler',
+      crypto_assets: ['BTC'],
+      content_types: ['Market News'],
       created_at: '2026-01-01T00:00:00Z',
       updated_at: '2026-01-01T00:00:00Z',
     })
@@ -107,9 +107,9 @@ describe('OnboardingPage', () => {
     await waitFor(() => expect(screen.getByText('Dashboard Page')).toBeInTheDocument())
     expect(mockedSubmitPreferences).toHaveBeenCalledWith(
       {
-        trading_strategy: 'long_term_hold',
-        risk_level: 'low',
-        notification_preferences: { crypto_assets: ['BTC'], content_types: ['Market News'] },
+        investor_type: 'hodler',
+        crypto_assets: ['BTC'],
+        content_types: ['Market News'],
       },
       'test-token',
     )
@@ -125,9 +125,9 @@ describe('OnboardingPage', () => {
             resolve({
               id: 1,
               user_id: 1,
-              trading_strategy: 'long_term_hold',
-              risk_level: 'low',
-              notification_preferences: { crypto_assets: ['BTC'], content_types: ['Market News'] },
+              investor_type: 'hodler',
+              crypto_assets: ['BTC'],
+              content_types: ['Market News'],
               created_at: '2026-01-01T00:00:00Z',
               updated_at: '2026-01-01T00:00:00Z',
             })

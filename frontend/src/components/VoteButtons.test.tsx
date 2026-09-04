@@ -34,7 +34,7 @@ function feedbackResponse(isUpvote: boolean): FeedbackWithVotesResponse {
 
 beforeEach(() => {
   mockedUseAuth.mockReturnValue({
-    user: { id: 1, email: 'a@example.com', onboarded: true, created_at: '2026-01-01T00:00:00Z' },
+    user: { id: 1, email: 'a@example.com', name: null, onboarded: true, created_at: '2026-01-01T00:00:00Z' },
     status: 'authenticated',
     token: 'test-token',
     login: vi.fn(),
@@ -109,3 +109,4 @@ describe('VoteButtons', () => {
     expect(screen.getByLabelText('Thumbs up')).toHaveAttribute('aria-pressed', 'true')
   })
 })
+

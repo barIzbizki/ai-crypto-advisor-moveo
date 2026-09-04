@@ -26,3 +26,8 @@ export function submitFeedback(
     token,
   )
 }
+
+export function getFeedback(contentIds: string[], token: string): Promise<FeedbackResponse[]> {
+  const query = contentIds.map(id => `content_ids=${encodeURIComponent(id)}`).join('&')
+  return apiClient.get<FeedbackResponse[]>(`/feedback?${query}`, token)
+}

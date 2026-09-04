@@ -49,7 +49,7 @@ describe('OnboardingRoute', () => {
 
   it('renders onboarding content for an authenticated, non-onboarded person', () => {
     mockedUseAuth.mockReturnValue({
-      user: { id: 1, email: 'a@example.com', onboarded: false, created_at: '2026-01-01T00:00:00Z' },
+      user: { id: 1, email: 'a@example.com', name: null, onboarded: false, created_at: '2026-01-01T00:00:00Z' },
       status: 'authenticated',
       token: 'token',
       login: vi.fn(),
@@ -65,7 +65,7 @@ describe('OnboardingRoute', () => {
 
   it('redirects an already-onboarded person to /dashboard', () => {
     mockedUseAuth.mockReturnValue({
-      user: { id: 1, email: 'a@example.com', onboarded: true, created_at: '2026-01-01T00:00:00Z' },
+      user: { id: 1, email: 'a@example.com', name: null, onboarded: true, created_at: '2026-01-01T00:00:00Z' },
       status: 'authenticated',
       token: 'token',
       login: vi.fn(),

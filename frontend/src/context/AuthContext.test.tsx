@@ -17,7 +17,7 @@ const mockedRegisterUser = vi.mocked(registerUser)
 const mockedLogin = vi.mocked(login)
 const mockedGetCurrentUser = vi.mocked(getCurrentUser)
 
-const testUser = { id: 1, email: 'a@example.com', onboarded: false, created_at: '2026-01-01T00:00:00Z' }
+const testUser = { id: 1, email: 'a@example.com', name: null, onboarded: false, created_at: '2026-01-01T00:00:00Z' }
 
 function TestConsumer() {
   const { user, status, token, login: doLogin, signup, logout, completeOnboarding } = useAuth()
@@ -141,3 +141,4 @@ describe('AuthContext', () => {
     expect(screen.getByTestId('onboarded')).toHaveTextContent('true')
   })
 })
+

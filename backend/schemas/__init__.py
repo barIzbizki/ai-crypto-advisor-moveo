@@ -1,3 +1,4 @@
+from schemas.dashboard import InsightItem, MemeItem, NewsItem, PriceItem
 from schemas.feedback import (
     FeedbackCreate,
     FeedbackResponse,
@@ -18,4 +19,8 @@ __all__ = [
     "PreferencesCreate",
     "PreferencesResponse",
     "PreferencesUpdate",
+    "NewsItem",
+    "PriceItem",
+    "InsightItem",
+    "MemeItem",
 ]
