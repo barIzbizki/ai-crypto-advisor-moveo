@@ -96,34 +96,35 @@ describe('Dashboard', () => {
       completeOnboarding: vi.fn(),
     })
 
-    vi.spyOn(globalThis, 'fetch').mockImplementation(((url: string) => {
-      if (url.includes('/dashboard/news')) {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(((url: RequestInfo | URL) => {
+      const urlStr = typeof url === 'string' ? url : url.toString()
+      if (urlStr.includes('/dashboard/news')) {
         return Promise.resolve(
           new Response(JSON.stringify(mockNewsData), { status: 200 }),
         )
       }
-      if (url.includes('/dashboard/prices')) {
+      if (urlStr.includes('/dashboard/prices')) {
         return Promise.resolve(
           new Response(JSON.stringify(mockPricesData), { status: 200 }),
         )
       }
-      if (url.includes('/dashboard/insight')) {
+      if (urlStr.includes('/dashboard/insight')) {
         return Promise.resolve(
           new Response(JSON.stringify(mockInsightData), { status: 200 }),
         )
       }
-      if (url.includes('/dashboard/meme')) {
+      if (urlStr.includes('/dashboard/meme')) {
         return Promise.resolve(
           new Response(JSON.stringify(mockMemeData), { status: 200 }),
         )
       }
-      if (url.includes('/feedback')) {
+      if (urlStr.includes('/feedback')) {
         return Promise.resolve(
           new Response(JSON.stringify(mockFeedbackData), { status: 200 }),
         )
       }
       return Promise.reject(new Error('Unknown URL'))
-    })
+    }))
 
     render(<DashboardPage />)
 
@@ -179,34 +180,35 @@ describe('Dashboard', () => {
       completeOnboarding: vi.fn(),
     })
 
-    vi.spyOn(globalThis, 'fetch').mockImplementation(((url: string) => {
-      if (url.includes('/dashboard/news')) {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(((url: RequestInfo | URL) => {
+      const urlStr = typeof url === 'string' ? url : url.toString()
+      if (urlStr.includes('/dashboard/news')) {
         return Promise.resolve(
           new Response(JSON.stringify(mockNewsData), { status: 200 }),
         )
       }
-      if (url.includes('/dashboard/prices')) {
+      if (urlStr.includes('/dashboard/prices')) {
         return Promise.resolve(
           new Response(JSON.stringify(mockPricesData), { status: 200 }),
         )
       }
-      if (url.includes('/dashboard/insight')) {
+      if (urlStr.includes('/dashboard/insight')) {
         return Promise.resolve(
           new Response(JSON.stringify(mockInsightData), { status: 200 }),
         )
       }
-      if (url.includes('/dashboard/meme')) {
+      if (urlStr.includes('/dashboard/meme')) {
         return Promise.resolve(
           new Response(JSON.stringify(mockMemeData), { status: 200 }),
         )
       }
-      if (url.includes('/feedback')) {
+      if (urlStr.includes('/feedback')) {
         return Promise.resolve(
           new Response(JSON.stringify([]), { status: 200 }),
         )
       }
       return Promise.reject(new Error('Unknown URL'))
-    })
+    }))
 
     render(<DashboardPage />)
 
@@ -229,32 +231,33 @@ describe('Dashboard', () => {
       completeOnboarding: vi.fn(),
     })
 
-    vi.spyOn(globalThis, 'fetch').mockImplementation(((url: string) => {
-      if (url.includes('/dashboard/news')) {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(((url: RequestInfo | URL) => {
+      const urlStr = typeof url === 'string' ? url : url.toString()
+      if (urlStr.includes('/dashboard/news')) {
         return Promise.resolve(new Response(JSON.stringify([]), { status: 200 }))
       }
-      if (url.includes('/dashboard/prices')) {
+      if (urlStr.includes('/dashboard/prices')) {
         return Promise.resolve(
           new Response(JSON.stringify(mockPricesData), { status: 200 }),
         )
       }
-      if (url.includes('/dashboard/insight')) {
+      if (urlStr.includes('/dashboard/insight')) {
         return Promise.resolve(
           new Response(JSON.stringify(mockInsightData), { status: 200 }),
         )
       }
-      if (url.includes('/dashboard/meme')) {
+      if (urlStr.includes('/dashboard/meme')) {
         return Promise.resolve(
           new Response(JSON.stringify(mockMemeData), { status: 200 }),
         )
       }
-      if (url.includes('/feedback')) {
+      if (urlStr.includes('/feedback')) {
         return Promise.resolve(
           new Response(JSON.stringify([]), { status: 200 }),
         )
       }
       return Promise.reject(new Error('Unknown URL'))
-    })
+    }))
 
     render(<DashboardPage />)
 
@@ -276,29 +279,30 @@ describe('Dashboard', () => {
 
     vi.spyOn(apiModule, 'getFeedback').mockResolvedValue(mockFeedbackData)
 
-    vi.spyOn(globalThis, 'fetch').mockImplementation(((url: string) => {
-      if (url.includes('/dashboard/news')) {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(((url: RequestInfo | URL) => {
+      const urlStr = typeof url === 'string' ? url : url.toString()
+      if (urlStr.includes('/dashboard/news')) {
         return Promise.resolve(
           new Response(JSON.stringify(mockNewsData), { status: 200 }),
         )
       }
-      if (url.includes('/dashboard/prices')) {
+      if (urlStr.includes('/dashboard/prices')) {
         return Promise.resolve(
           new Response(JSON.stringify([]), { status: 200 }),
         )
       }
-      if (url.includes('/dashboard/insight')) {
+      if (urlStr.includes('/dashboard/insight')) {
         return Promise.resolve(
           new Response(JSON.stringify(null), { status: 404 }),
         )
       }
-      if (url.includes('/dashboard/meme')) {
+      if (urlStr.includes('/dashboard/meme')) {
         return Promise.resolve(
           new Response(JSON.stringify(null), { status: 404 }),
         )
       }
       return Promise.reject(new Error('Unknown URL'))
-    })
+    }))
 
     render(<DashboardPage />)
 
