@@ -6,11 +6,11 @@ from pydantic import BaseModel, ConfigDict, Field
 
 class FeedbackCreate(BaseModel):
     content_id: str = Field(..., min_length=1, max_length=255)
-    rating: int = Field(..., ge=1, le=5)
+    is_upvote: bool
 
 
 class FeedbackUpdate(BaseModel):
-    rating: int = Field(..., ge=1, le=5)
+    is_upvote: bool
 
 
 class FeedbackResponse(BaseModel):
@@ -19,7 +19,7 @@ class FeedbackResponse(BaseModel):
     id: int
     user_id: int
     content_id: str
-    rating: int
+    is_upvote: bool
     created_at: datetime
     updated_at: datetime
 
