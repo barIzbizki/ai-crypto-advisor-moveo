@@ -10,17 +10,19 @@ export function DashboardPage() {
   const { user, logout } = useAuth()
 
   return (
-    <section>
-      <h1>Dashboard</h1>
-      <p>Signed in as {user?.email}</p>
-      <button type="button" onClick={logout}>
-        Log out
-      </button>
+    <div className="dashboard-page">
+      <div className="dashboard-header">
+        <h1>Dashboard</h1>
+        <p>Signed in as {user?.email}</p>
+        <button type="button" className="btn" onClick={logout}>
+          Log out
+        </button>
+      </div>
       <div className="content-cards">
         {SAMPLE_CONTENT.map((item) => (
           <ContentCard key={item.contentId} contentId={item.contentId} title={item.title} />
         ))}
       </div>
-    </section>
+    </div>
   )
 }
