@@ -97,6 +97,8 @@ uvicorn main:app --host 0.0.0.0 --port $PORT
 ```
 Render injects `$PORT`; the service must bind `0.0.0.0`, not `localhost`.
 
+**Python version:** pinned via `backend/.python-version` (currently 3.12.2, matching local dev — see Prerequisites above). Render reads this file to select the build's Python version; without it, Render falls back to its own default, which can be newer than this project supports (SQLAlchemy 2.0.36's model mapping breaks under Python 3.14). Keep this file in sync with the version used locally when upgrading.
+
 **Required production environment variables** (set on the Render web service, not committed anywhere — see `backend/core/config.py`):
 | Variable | Value |
 | --- | --- |
