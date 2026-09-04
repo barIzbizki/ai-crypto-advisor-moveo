@@ -12,4 +12,6 @@ export type {
   RiskLevel,
   OnboardingNotificationPreferences,
 } from './preferences'
+export { submitFeedback } from './feedback'
+export type { FeedbackResponse, FeedbackWithVotesResponse } from './feedback'
 

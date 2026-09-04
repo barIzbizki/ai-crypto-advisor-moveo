@@ -25,7 +25,7 @@ class FeedbackService:
         feedback = Feedback(
             user_id=user_id,
             content_id=feedback_in.content_id,
-            rating=feedback_in.rating,
+            is_upvote=feedback_in.is_upvote,
         )
         db.add(feedback)
         db.commit()
@@ -36,7 +36,7 @@ class FeedbackService:
     def update(
         db: Session, feedback: Feedback, feedback_in: FeedbackUpdate
     ) -> Feedback:
-        """Update existing feedback vote with new rating."""
+        """Update existing feedback vote with new value."""
         update_data = feedback_in.model_dump(exclude_unset=True)
         for field, value in update_data.items():
             setattr(feedback, field, value)
@@ -55,7 +55,7 @@ class FeedbackService:
         )
 
         if existing_feedback:
-            update_in = FeedbackUpdate(rating=feedback_in.rating)
+            update_in = FeedbackUpdate(is_upvote=feedback_in.is_upvote)
             updated_feedback = FeedbackService.update(db, existing_feedback, update_in)
             return updated_feedback, False
         else:
