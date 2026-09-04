@@ -3,6 +3,7 @@ import { apiClient } from './client'
 export interface AuthUser {
   id: number
   email: string
+  onboarded: boolean
   created_at: string
 }
 
