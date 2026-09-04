@@ -33,22 +33,29 @@ export function VoteButtons({ contentId, initialVote }: VoteButtonsProps) {
 
   return (
     <div className="vote-buttons">
-      <button
-        type="button"
-        aria-pressed={vote === true}
-        aria-label="Thumbs up"
-        onClick={() => handleVote(true)}
-      >
-        👍
-      </button>
-      <button
-        type="button"
-        aria-pressed={vote === false}
-        aria-label="Thumbs down"
-        onClick={() => handleVote(false)}
-      >
-        👎
-      </button>
+      <div className="vote-buttons__controls">
+        <button
+          type="button"
+          className={`vote-buttons__btn${vote === true ? ' is-selected' : ''}`}
+          aria-pressed={vote === true}
+          aria-label="Thumbs up"
+          onClick={() => handleVote(true)}
+        >
+          👍
+        </button>
+        <button
+          type="button"
+          className={`vote-buttons__btn${vote === false ? ' is-selected' : ''}`}
+          aria-pressed={vote === false}
+          aria-label="Thumbs down"
+          onClick={() => handleVote(false)}
+        >
+          👎
+        </button>
+      </div>
+      {vote !== undefined && (
+        <p className="vote-buttons__status">{vote ? 'You upvoted this' : 'You downvoted this'}</p>
+      )}
       {error && (
         <p className="vote-buttons-error" role="alert">
           {error}
