@@ -7,7 +7,7 @@ export interface RedirectLocationState {
 }
 
 export function ProtectedRoute({ children }: { children: ReactNode }) {
-  const { status } = useAuth()
+  const { status, user } = useAuth()
   const location = useLocation()
 
   if (status === 'loading') {
@@ -17,6 +17,10 @@ export function ProtectedRoute({ children }: { children: ReactNode }) {
   if (status !== 'authenticated') {
     const state: RedirectLocationState = { from: { pathname: location.pathname } }
     return <Navigate to="/login" replace state={state} />
+  }
+
+  if (user && !user.onboarded) {
+    return <Navigate to="/onboarding" replace />
   }
 
   return <>{children}</>

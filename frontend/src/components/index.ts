@@ -1,4 +1,5 @@
 export { ProtectedRoute } from './ProtectedRoute'
 export type { RedirectLocationState } from './ProtectedRoute'
+export { OnboardingRoute } from './OnboardingRoute'
 export { AuthCard } from './AuthCard'
 export { FormField } from './FormField'

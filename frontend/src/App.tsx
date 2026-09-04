@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { ProtectedRoute } from './components'
-import { DashboardPage, LoginPage, SignupPage } from './pages'
+import { OnboardingRoute, ProtectedRoute } from './components'
+import { DashboardPage, LoginPage, OnboardingPage, SignupPage } from './pages'
 import './App.css'
 
 function App() {
@@ -9,6 +9,14 @@ function App() {
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
+      <Route
+        path="/onboarding"
+        element={
+          <OnboardingRoute>
+            <OnboardingPage />
+          </OnboardingRoute>
+        }
+      />
       <Route
         path="/dashboard"
         element={

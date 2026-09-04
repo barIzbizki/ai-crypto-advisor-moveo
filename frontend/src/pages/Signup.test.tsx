@@ -29,9 +29,11 @@ beforeEach(() => {
   mockedUseAuth.mockReturnValue({
     user: null,
     status: 'unauthenticated',
+    token: null,
     login: vi.fn(),
     signup: signupMock,
     logout: vi.fn(),
+    completeOnboarding: vi.fn(),
   })
 })
 

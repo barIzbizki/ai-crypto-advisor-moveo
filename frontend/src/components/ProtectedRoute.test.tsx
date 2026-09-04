@@ -40,9 +40,11 @@ describe('ProtectedRoute', () => {
     mockedUseAuth.mockReturnValue({
       user: null,
       status: 'unauthenticated',
+      token: null,
       login: vi.fn(),
       signup: vi.fn(),
       logout: vi.fn(),
+      completeOnboarding: vi.fn(),
     })
 
     renderAt('/dashboard')
@@ -51,13 +53,15 @@ describe('ProtectedRoute', () => {
     expect(screen.getByTestId('from')).toHaveTextContent('/dashboard')
   })
 
-  it('renders the protected content for an authenticated person', () => {
+  it('renders the protected content for an authenticated, onboarded person', () => {
     mockedUseAuth.mockReturnValue({
-      user: { id: 1, email: 'a@example.com', created_at: '2026-01-01T00:00:00Z' },
+      user: { id: 1, email: 'a@example.com', onboarded: true, created_at: '2026-01-01T00:00:00Z' },
       status: 'authenticated',
+      token: 'token',
       login: vi.fn(),
       signup: vi.fn(),
       logout: vi.fn(),
+      completeOnboarding: vi.fn(),
     })
 
     renderAt('/dashboard')
@@ -65,13 +69,46 @@ describe('ProtectedRoute', () => {
     expect(screen.getByText('Protected Content')).toBeInTheDocument()
   })
 
+  it('redirects an authenticated, non-onboarded person to /onboarding', () => {
+    mockedUseAuth.mockReturnValue({
+      user: { id: 1, email: 'a@example.com', onboarded: false, created_at: '2026-01-01T00:00:00Z' },
+      status: 'authenticated',
+      token: 'token',
+      login: vi.fn(),
+      signup: vi.fn(),
+      logout: vi.fn(),
+      completeOnboarding: vi.fn(),
+    })
+
+    render(
+      <MemoryRouter initialEntries={['/dashboard']}>
+        <Routes>
+          <Route path="/onboarding" element={<div>Onboarding Page</div>} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <div>Protected Content</div>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </MemoryRouter>,
+    )
+
+    expect(screen.queryByText('Protected Content')).not.toBeInTheDocument()
+    expect(screen.getByText('Onboarding Page')).toBeInTheDocument()
+  })
+
   it('renders nothing while auth status is still loading', () => {
     mockedUseAuth.mockReturnValue({
       user: null,
       status: 'loading',
+      token: null,
       login: vi.fn(),
       signup: vi.fn(),
       logout: vi.fn(),
+      completeOnboarding: vi.fn(),
     })
 
     const { container } = renderAt('/dashboard')
