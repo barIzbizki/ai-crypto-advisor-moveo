@@ -11,7 +11,10 @@ class Settings(BaseSettings):
         "postgresql+psycopg://postgres:postgres@localhost:5432/ai_crypto_advisor"
     )
     environment: str = "local"
-    cors_origins: Annotated[list[str], NoDecode] = ["http://localhost:5173"]
+    cors_origins: Annotated[list[str], NoDecode] = [
+        "http://localhost:5173",
+        "https://ai-crypto-advisor-moveo.vercel.app",
+    ]
     secret_key: str
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
