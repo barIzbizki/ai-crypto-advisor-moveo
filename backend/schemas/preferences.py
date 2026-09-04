@@ -1,26 +1,20 @@
 from datetime import datetime
-from enum import Enum
-from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
-
-class RiskLevel(str, Enum):
-    LOW = "low"
-    MEDIUM = "medium"
-    HIGH = "high"
+from models.preferences import InvestorType
 
 
 class PreferencesCreate(BaseModel):
-    trading_strategy: str = Field(..., min_length=1, max_length=255)
-    risk_level: Optional[RiskLevel] = None
-    notification_preferences: Optional[dict] = None
+    investor_type: InvestorType
+    crypto_assets: list[str] = Field(..., min_length=1)
+    content_types: list[str] = Field(..., min_length=1)
 
 
 class PreferencesUpdate(BaseModel):
-    trading_strategy: Optional[str] = Field(None, min_length=1, max_length=255)
-    risk_level: Optional[RiskLevel] = None
-    notification_preferences: Optional[dict] = None
+    investor_type: InvestorType
+    crypto_assets: list[str] = Field(..., min_length=1)
+    content_types: list[str] = Field(..., min_length=1)
 
 
 class PreferencesResponse(BaseModel):
@@ -28,8 +22,8 @@ class PreferencesResponse(BaseModel):
 
     id: int
     user_id: int
-    trading_strategy: str
-    risk_level: Optional[RiskLevel]
-    notification_preferences: Optional[dict]
+    investor_type: InvestorType
+    crypto_assets: list[str]
+    content_types: list[str]
     created_at: datetime
     updated_at: datetime

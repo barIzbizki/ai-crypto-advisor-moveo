@@ -66,3 +66,21 @@ class FeedbackService:
     def get_votes_for_content(db: Session, content_id: str) -> list[Feedback]:
         """Retrieve all votes for a content item."""
         return db.query(Feedback).filter(Feedback.content_id == content_id).all()
+
+    @staticmethod
+    def get_by_user_and_content_ids(
+        db: Session, user_id: int, content_ids: list[str]
+    ) -> list[Feedback]:
+        """Retrieve votes for a user across multiple content IDs.
+
+        Returns empty list if content_ids is empty or no votes found.
+        """
+        if not content_ids:
+            return []
+        return (
+            db.query(Feedback)
+            .filter(
+                Feedback.user_id == user_id, Feedback.content_id.in_(content_ids)
+            )
+            .all()
+        )

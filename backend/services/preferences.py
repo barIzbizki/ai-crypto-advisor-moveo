@@ -23,9 +23,9 @@ class PreferencesService:
         """
         preferences = UserPreferences(
             user_id=user_id,
-            trading_strategy=preferences_in.trading_strategy,
-            risk_level=preferences_in.risk_level,
-            notification_preferences=preferences_in.notification_preferences,
+            investor_type=preferences_in.investor_type,
+            crypto_assets=preferences_in.crypto_assets,
+            content_types=preferences_in.content_types,
         )
         db.add(preferences)
         db.commit()
