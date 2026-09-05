@@ -5,6 +5,7 @@ Revises: 0d5f9f58926b
 Create Date: 2026-09-04 16:00:00.000000
 
 """
+import json
 from typing import Sequence, Union
 
 from alembic import op
@@ -27,6 +28,8 @@ def upgrade() -> None:
 
     reverse_map = {
         'long_term_hold': 'hodler',
+        'long_term': 'hodler',
+        'balanced_growth': 'hodler',
         'active_trading': 'day_trader',
         'nft_collecting': 'nft_collector',
     }
@@ -52,19 +55,10 @@ def upgrade() -> None:
         if not content_types:
             content_types = []
 
-        connection.execute(
-            sa.text(
-                "UPDATE user_preferences SET investor_type = :investor_type, crypto_assets = :crypto_assets, content_types = :content_types WHERE id = :id"
-            ),
-            {
-                'investor_type': investor_type,
-                'crypto_assets': sa.JSON.astext(str(crypto_assets).replace("'", '"')),
-                'content_types': sa.JSON.astext(str(content_types).replace("'", '"')),
-                'id': row_id,
-            }
+        connection.exec_driver_sql(
+            "UPDATE user_preferences SET investor_type = %s, crypto_assets = %s::json, content_types = %s::json WHERE id = %s",
+            (investor_type, json.dumps(crypto_assets), json.dumps(content_types), row_id),
         )
-
-    connection.commit()
 
 
 def downgrade() -> None:
